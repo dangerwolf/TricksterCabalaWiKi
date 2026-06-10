@@ -1,7 +1,7 @@
-# My Hugo Blog
+# TricksterCabalaWiKi
 
-静态博客平台，用于发布软件工程领域的学术论文附录、补充资料和研究笔记。基于 Hugo 构建，支持快速部署和版本管理。
 
+个人自用卡巴拉岛/星钻物语/Trickster游戏资料wiki。
 
 
 [TOC]
@@ -12,7 +12,7 @@
 
 - **框架**：Hugo（静态网站生成器）
 - **内容语言**：HTML/Markdown
-- **主要用途**：学术论文附录、补充内容、研究文档
+- **主要用途**：个人自用卡巴拉岛/星钻物语/Trickster游戏资料wiki。
 - **部署方式**：Git + CI/CD（可选）
 
 ## 🚀 快速开始
@@ -38,8 +38,8 @@
 
 1. **克隆仓库**
    ```bash
-   git clone https://github.com/dangerwolf/my-hugo-blog.git
-   cd my-hugo-blog
+   git clone https://github.com/dangerwolf/TricksterCabalaWiKi.git
+   cd TricksterCabalaWiKi
    ```
 
 2. **初始化或检查依赖**
@@ -219,7 +219,7 @@ theme = "your-theme-name"
 git clone https://github.com/theme-author/theme-name themes/theme-name
 
 # 方法二：使用 Hugo Modules
-hugo mod init github.com/dangerwolf/my-hugo-blog
+hugo mod init github.com/dangerwolf/TricksterCabalaWiKi
 hugo mod get -u
 ```
 
@@ -231,7 +231,7 @@ theme = "theme-name"
 ## 📂 目录结构
 
 ```
-my-hugo-blog/
+TricksterCabalaWiKi/
 ├── archetypes/         # 文章模板
 │   └── default.md     # 默认模板
 ├── content/           # 文章内容

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on WOLF's Blog</title><link>https://blog.kylinwolf.com/posts/</link><description>Recent content in Posts on WOLF's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 03 Jun 2026 14:44:40 +0800</lastBuildDate><atom:link href="https://blog.kylinwolf.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>如何修改JabRef模板以克隆Google学术格式</title><link>https://blog.kylinwolf.com/posts/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9jabref%E6%A8%A1%E6%9D%BF%E4%BB%A5%E5%85%8B%E9%9A%86google%E5%AD%A6%E6%9C%AF%E6%A0%BC%E5%BC%8F/</link><pubDate>Wed, 03 Jun 2026 14:44:40 +0800</pubDate><guid>https://blog.kylinwolf.com/posts/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9jabref%E6%A8%A1%E6%9D%BF%E4%BB%A5%E5%85%8B%E9%9A%86google%E5%AD%A6%E6%9C%AF%E6%A0%BC%E5%BC%8F/</guid><description>&lt;h1 id="如何修改jabref模板以克隆google学术格式"&gt;如何修改JabRef模板以克隆Google学术格式&lt;/h1&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id="一-两种-citation-key-的对比与选择建议"&gt;一、 两种 Citation Key 的对比与选择建议&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th style="text-align: left"&gt;特性&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;Google 学术格式 (&lt;code&gt;authoryearfirstword&lt;/code&gt;)&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;JabRef 默认格式 (&lt;code&gt;AuthorYear&lt;/code&gt;)&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;全小写&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;是&lt;/strong&gt;（如 &lt;code&gt;smith2024attention&lt;/code&gt;）&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;否&lt;/strong&gt;（首字母大写，如 &lt;code&gt;Smith2024&lt;/code&gt;）&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;防冲突能力&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;极强&lt;/strong&gt;。增加了标题第一个核心词，重名概率极低。&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;较弱&lt;/strong&gt;。若同一作者在同一年发表多篇论文，会冲突变成 &lt;code&gt;Smith2024a&lt;/code&gt;。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;输入便利性&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;全小写在写 LaTeX 代码（如 &lt;code&gt;\cite{...}&lt;/code&gt;）时，&lt;strong&gt;无需切换大小写&lt;/strong&gt;，打字效率最高。&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;需要频繁按 &lt;code&gt;Shift&lt;/code&gt; 键输入大写字母。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;辨识度&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;略逊。全部粘在一起，不如大写字母有视觉分隔感。&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;优秀&lt;/strong&gt;。大写字母和数字天然具有视觉分隔效果。&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;💡 结论建议：&lt;/strong&gt; 如果你追求打字流畅（不想按 Shift 键）且文献库庞大，推荐使用 &lt;strong&gt;Google 学术的全小写格式&lt;/strong&gt;；如果你喜欢代码中&lt;strong&gt;一眼看清作者和年份&lt;/strong&gt;，则保留 &lt;strong&gt;JabRef 默认格式&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="二-如何修改-jabref-模板以克隆-google-学术格式"&gt;二、 如何修改 JabRef 模板以克隆 Google 学术格式&lt;/h2&gt;
+&lt;p&gt;要在 JabRef 中自动生成形如 &lt;code&gt;smith2024attention&lt;/code&gt;（全小写第一作者姓氏 + 4位年份 + 标题第一个核心词）的 Citation Key，请按照以下步骤配置：&lt;/p&gt;
+&lt;h3 id="1-修改全局生成模板"&gt;1. 修改全局生成模板&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开 JabRef，在菜单栏中选择 &lt;strong&gt;文件 (File)&lt;/strong&gt; -&amp;gt; &lt;strong&gt;首选项 (Preferences)&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在左侧导航栏中，找到并点击 &lt;strong&gt;Citation key generator&lt;/strong&gt;（引文键生成器）。&lt;/p&gt;</description></item><item><title>使用Windows系统电脑借用LLM快速配置VPS</title><link>https://blog.kylinwolf.com/posts/%E4%BD%BF%E7%94%A8windows%E7%B3%BB%E7%BB%9F%E7%94%B5%E8%84%91%E5%80%9F%E7%94%A8llm%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AEvps/</link><pubDate>Tue, 02 Jun 2026 13:28:13 +0800</pubDate><guid>https://blog.kylinwolf.com/posts/%E4%BD%BF%E7%94%A8windows%E7%B3%BB%E7%BB%9F%E7%94%B5%E8%84%91%E5%80%9F%E7%94%A8llm%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AEvps/</guid><description>&lt;h1 id="使用windows系统电脑借用llm快速配置vps"&gt;使用Windows系统电脑借用LLM快速配置VPS&lt;/h1&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;提示词Prompt如下：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;你现在是我的专业服务器运维 + 最强多看板自动搭建专家（用 Marzban 作为代理管理后台）
+我的本地电脑是【】系统，VPS 是【】 系统，服务商给了我 root 账号密码。我完全不懂 SSH 和 Linux，但我想全程让你自动接管。 
+
+服务器 IP：【填你的 IP】
+root 用户名：root
+root 密码：【填你的密码】 
+
+请你**全程自动接管**，先教我如何从 Windows 11 用 PowerShell 连接 VPS，然后用 SSH 密码方式登录服务器，按以下最优顺序完整执行（我只会把你给的每一条命令复制粘贴执行，然后把终端输出完整贴回给你）：
+
+1. 指导我从 Windows 11 用 PowerShell 连接 VPS（给出完整命令 + 每一步详细操作，包括第一次连接确认 yes 和输入密码）。
+2. SSH 登录成功后，先检查当前系统版本，然后更新系统（apt update &amp;amp;&amp;amp; apt upgrade -y）。
+3. 安装 Cockpit（网页文字级服务器看板），自动开启并启动服务，告诉我浏览器访问地址，并用最白话解释这个看板有哪些页面、怎么用。
+4. 安装 Netdata（漂亮的实时监控看板），用 Docker 方式自动部署，告诉我访问地址和彩色图表用法。
+5. 安装 Docker（官方一键脚本）。
+6. 用官方脚本安装最新版 Marzban 面板：sudo bash -c &amp;#34;$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)&amp;#34; @ install
+7. 安装完成后，自动创建最安全的 Marzban 管理员账号和密码（如果有交互提示，请告诉我最优答案）。
+8. 在 Marzban 里创建一个最强抗封锁入站：VLESS + Reality + uTLS（可混合 Hysteria2），自动开放必要端口 + 开启 BBR 速度优化。
+9. 生成订阅链接、二维码和客户端配置文件（Clash Meta、v2rayN、Nekobox、Shadowrocket）。
+10. 最后用最白话一步一步输出：
+ - Cockpit 看板访问地址 + 每个页面的用途和操作方法
+ - Netdata 看板访问地址 + 彩色图表到底看什么
+ - Marzban 看板访问地址 + 每个主要页面（首页看板、用户列表、入站设置、订阅管理、实时流量数据图表等）怎么用
+ - 安全建议（改成 SSH 密钥登录 + 禁用密码登录）
+
+整个过程严格用“编号 + 代码块”形式输出命令，我每执行完一条就回复“已完成”并贴完整输出，你再给下一条。
+目标：让我用 Windows 11 电脑也能零基础让 CODEX 自动装好 Marzban（随时打开浏览器就能看到所有实时代理数据）+ Cockpit + Netdata 的完整出海代理系统。
+
+现在开始！
+&lt;/code&gt;&lt;/pre&gt;</description></item><item><title>受害者有罪论!?</title><link>https://blog.kylinwolf.com/posts/%E5%8F%97%E5%AE%B3%E8%80%85%E6%9C%89%E7%BD%AA%E8%AE%BA/</link><pubDate>Wed, 09 Jul 2025 15:56:56 +0800</pubDate><guid>https://blog.kylinwolf.com/posts/%E5%8F%97%E5%AE%B3%E8%80%85%E6%9C%89%E7%BD%AA%E8%AE%BA/</guid><description>&lt;p&gt;&lt;img src="https://p.ipic.vip/rq2p5j.jpg" alt="IMG_2285"&gt;&lt;/p&gt;
+&lt;p&gt;（图片来源：学长不穿鞋 公众号）&lt;/p&gt;
+&lt;p&gt;最近的一次，我听到某位女老师说：“XXX为什么只欺负你？”，“为什么她不这么对待别人？”&lt;/p&gt;
+&lt;p&gt;我真的，从一个高校老师口中听到这个，还是我原本觉得是个好老师的口中。&lt;/p&gt;
+&lt;p&gt;失望！失望！！失望！！！&lt;/p&gt;
+&lt;p&gt;我当初是眼瞎了，觉得她是好老师。&lt;/p&gt;</description></item><item><title>单 GitHub 私有库通过 Cloudflare Pages 的 Hugo 构建静态 Blog</title><link>https://blog.kylinwolf.com/posts/%E5%8D%95github%E7%A7%81%E6%9C%89%E5%BA%93%E9%80%9A%E8%BF%87cloudflare-pages-%E7%9A%84-hugo-%E6%9E%84%E5%BB%BA%E9%9D%99%E6%80%81blog/</link><pubDate>Thu, 08 May 2025 16:17:11 +0800</pubDate><guid>https://blog.kylinwolf.com/posts/%E5%8D%95github%E7%A7%81%E6%9C%89%E5%BA%93%E9%80%9A%E8%BF%87cloudflare-pages-%E7%9A%84-hugo-%E6%9E%84%E5%BB%BA%E9%9D%99%E6%80%81blog/</guid><description>&lt;h1 id="单github私有库通过cloudflare-pages-的-hugo-构建静态blog"&gt;单GitHub私有库通过Cloudflare Pages 的 Hugo 构建静态Blog&lt;/h1&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;#Hugo , #Cloudflare , #Cloudflare Pages , #Github , #Blog&lt;/p&gt;
+&lt;p&gt;希望仅使用一个 GitHub 仓库，通过 Hugo 构建静态博客，并利用 Cloudflare Pages 的 Hugo 自动构建功能进行部署和展示，这完全是可行的，并且也是一种非常高效和简洁的方案。&lt;/p&gt;
+&lt;h2 id="核心思路"&gt;&lt;strong&gt;核心思路&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;单一仓库策略：&lt;/strong&gt; 所有的 Hugo 网站源文件（包括主题）都放在同一个 GitHub 仓库中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cloudflare Pages 自动构建：&lt;/strong&gt; 配置 Cloudflare Pages 连接你的 GitHub 仓库，并设置构建环境为 Hugo。Cloudflare Pages 会自动检测到你的 Hugo 项目并进行构建和部署。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="详细步骤和操作代码"&gt;&lt;strong&gt;详细步骤和操作代码&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3 id="第一步创建-hugo-网站"&gt;&lt;strong&gt;第一步：创建 Hugo 网站&lt;/strong&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;本地环境准备：&lt;/strong&gt; 确保你的本地计算机已经安装了 Hugo。你可以访问 &lt;a href="https://gohugo.io/installation/"&gt;https://gohugo.io/installation/&lt;/a&gt; 获取安装指南。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;创建 Hugo 站点：&lt;/strong&gt; 在你的本地计算机上，打开终端或命令提示符，导航到你希望创建项目的目录，然后运行以下命令：&lt;/p&gt;
+&lt;p&gt;Bash&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;hugo new site my-blog
+cd my-blog
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这将创建一个名为 &lt;code&gt;my-blog&lt;/code&gt; 的 Hugo 站点目录，并切换到该目录。&lt;/p&gt;</description></item><item><title>List of Donations</title><link>https://blog.kylinwolf.com/posts/list-of-donations/</link><pubDate>Wed, 25 Dec 2024 14:23:21 +0800</pubDate><guid>https://blog.kylinwolf.com/posts/list-of-donations/</guid><description>&lt;h1 id="list-of-donations"&gt;List of Donations&lt;/h1&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;哈哈哈哈哈哈哈哈哈哈&lt;/p&gt;
+&lt;p&gt;按时间顺序盘点感谢一下&lt;/p&gt;
+&lt;h2 id="被抽奖抽到获得礼物"&gt;被抽奖抽到获得礼物&lt;/h2&gt;
+&lt;p&gt;感谢：&lt;/p&gt;
+&lt;p&gt;@许医森&lt;/p&gt;
+&lt;p&gt;@上官无筵&lt;/p&gt;
+&lt;p&gt;@JaredChan&lt;/p&gt;
+&lt;p&gt;@周洲&lt;/p&gt;
+&lt;h2 id="赠送礼物"&gt;赠送礼物&lt;/h2&gt;
+&lt;p&gt;感谢：&lt;/p&gt;
+&lt;p&gt;@振衣&lt;/p&gt;
+&lt;p&gt;@一颗大卤蛋&lt;/p&gt;
+&lt;p&gt;@花猪儿Er&lt;/p&gt;
+&lt;h2 id="vx红包"&gt;vx红包&lt;/h2&gt;
+&lt;p&gt;感谢：&lt;/p&gt;
+&lt;p&gt;@波加曼波&lt;/p&gt;
+&lt;p&gt;@雅柏菲卡&lt;/p&gt;
+&lt;p&gt;@花猪儿Er&lt;/p&gt;
+&lt;p&gt;@暮雨子规啼&lt;/p&gt;
+&lt;p&gt;@星新一方&lt;/p&gt;
+&lt;p&gt;@迷魂&lt;/p&gt;
+&lt;p&gt;@雪昂想试试昵称可以改多长&lt;/p&gt;
+&lt;p&gt;@weken&lt;/p&gt;
+&lt;p&gt;@PINCHOW.cool&lt;/p&gt;
+&lt;h2 id="打赏捐赠被黄即抽头"&gt;打赏捐赠（被黄即抽头）&lt;/h2&gt;
+&lt;p&gt;感谢：&lt;/p&gt;
+&lt;p&gt;@头有点儿凉&lt;/p&gt;
+&lt;p&gt;@狗砸Poliwhirl&lt;/p&gt;
+&lt;p&gt;@星新一方&lt;/p&gt;
+&lt;h2 id="最后"&gt;最后&lt;/h2&gt;
+&lt;p&gt;感谢各位对我的支持，为了你们，我会持续输出的。&lt;/p&gt;
+&lt;h2 id="捐助途径"&gt;捐助途径&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://p.ipic.vip/kpsg5x.jpg" alt="IMG_9411"&gt;&lt;/p&gt;</description></item><item><title>一个不反对性少数群体的直男随笔</title><link>https://blog.kylinwolf.com/posts/%E4%B8%80%E4%B8%AA%E4%B8%8D%E5%8F%8D%E5%AF%B9%E6%80%A7%E5%B0%91%E6%95%B0%E7%BE%A4%E4%BD%93%E7%9A%84%E7%9B%B4%E7%94%B7%E9%9A%8F%E7%AC%94/</link><pubDate>Wed, 17 May 2023 16:03:36 +0800</pubDate><guid>https://blog.kylinwolf.com/posts/%E4%B8%80%E4%B8%AA%E4%B8%8D%E5%8F%8D%E5%AF%B9%E6%80%A7%E5%B0%91%E6%95%B0%E7%BE%A4%E4%BD%93%E7%9A%84%E7%9B%B4%E7%94%B7%E9%9A%8F%E7%AC%94/</guid><description>&lt;h1 id="一个不反对性少数群体的直男随笔"&gt;一个不反对性少数群体的直男随笔&lt;/h1&gt;
+&lt;p&gt;#517&lt;/p&gt;
+&lt;p&gt;来到即刻 2300+天了，关注某些圈子也很久了。借此机会，记录一个随笔。&lt;/p&gt;
+&lt;p&gt;有些即友知道，我本身是个喜欢女生的男异性恋，是男生口中的直男，也是女生口中的直男。&lt;/p&gt;
+&lt;p&gt;当年本科上学的时候，偶然发现班里有个男同学（暂且叫他小 Z 吧）是男同性恋（虽然他有时候不太承认）。通过大学几年和小 Z 的接触，我对性少数群体没有任何敌意。小 Z 除了在某些地方表现得是个男同外，其余的地方没什么不一样的。小 Z ，嘴损嘴毒，性格变化多端阴晴不定，看 gv，和长得好看的男生亲近，Babyface，轻度护肤，愿望是开一个只有男同能进的浴池，……。小 Z 说他的“择偶”标准：长得好看要帅，异性恋，（还要第三条，但是我忘了）。比较巧，小 Z 在本科期间，发展的 3 任有好感的（据说发生过关系的）同学，都是来自“非原生家庭”或者“再生家庭”，分别来自我们学院的三个专业。&lt;/p&gt;
+&lt;p&gt;后来有几位即友跟我说，我这种对性少数群体毫无负面认知，可能就是因为我认识的第一位性少数群体者，起了一个好头。&lt;/p&gt;
+&lt;p&gt;来到即刻之后，也有被部分即友质疑过，我到底是不是，我的目的是什么？为什么不是还要表现得亲近他们，其中有一些表示了轻微的敌意或者什么。当然，加个几个即友的 vx，也私聊了一些，有几个联系还算频繁的 gay，也被他们信任过，能聊的不能聊的也都聊了一些，他们给我发的照片和表情包，有的尺度还是挺大的，感谢他们善意地对待我这个好奇宝宝和十万个为什么。毕竟好奇心不但能害死猫，还能害死我。我觉得，他们除了性取向与大多数人不同外，别的也是正常人，都有正常人的喜怒哀乐，生老病死，不同的三观和思想。&lt;/p&gt;
+&lt;p&gt;每当我周围的人或同学对性少数群体有敌意或者负面认知的时候，我都会帮着解释和宣传，期望扭转他们的认知，为性少数群体贡献一点什么。我也曾多次考虑或者想过，加入某个组织去做志愿者，但奈何我社恐和瞎忙，从来没有付诸过行动。有些即友劝解我，还是小心一点，毕竟，首先要保护好自己。&lt;/p&gt;
+&lt;p&gt;虽然家家有本难念的经，大家都是人，没什么不一样的。有的时候，想让别人更好的接纳你，你要先接纳你自己。别总拿自己是性少数群体说事。&lt;/p&gt;
+&lt;p&gt;再次感谢那些对我善意的人。&lt;/p&gt;
+&lt;p&gt;自己别的做不了啥，只能在网上，小范围的发文略表心意，贡献一点点了。&lt;/p&gt;
+&lt;p&gt;愿不再恐同，愿世界和平。&lt;/p&gt;
+&lt;p&gt;PS：刚才自己还吐槽看别人的 gzh 文章，没啥逻辑，找不出主线，乱七八糟的拼凑。自己写完，回看，也这样，没啥逻辑和因为所以。&lt;/p&gt;</description></item><item><title>我的第一篇文章</title><link>https://blog.kylinwolf.com/posts/my-first-post/</link><pubDate>Thu, 27 Oct 2011 10:00:00 +0800</pubDate><guid>https://blog.kylinwolf.com/posts/my-first-post/</guid><description>&lt;p&gt;这是我的第一篇 Hugo 博客文章。&lt;/p&gt;</description></item></channel></rss>

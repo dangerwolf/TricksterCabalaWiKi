@@ -1,0 +1,63 @@
+baseURL = "https://blog.kylinwolf.com"
+languageCode = "zh-cn"
+title = "WOLF's Blog"
+# theme = "PaperMod"
+theme = "hugo-theme-m10c"
+
+
+
+[params]
+    ShowToc = true
+    TocOpen = true
+    ShowBreadCrumbs = true
+    ShowCodeCopyButtons = true
+    enableMathJax = true
+    enableKaTeX = true
+    enableMermaid = true
+
+    author = "WOLF" 
+    description = "Ph.D. student。守序中立。不主动、不拒绝、不承诺、不负责。喜欢🌈🏳️‍🌈配色和大气光学现象的异性恋的直男。"
+    # 你可以放一个头像链接，如果不需要可以注释掉或删除
+    avatar = "images/wolf.png" 
+
+[menu]
+    [[menu.main]]
+        identifier = "home"
+        name = "Blog"
+        url = "/"
+        weight = 10
+    [[menu.main]]
+        identifier = "projects"
+        name = "项目"
+        url = "/projects/"
+        weight = 20
+    [[menu.main]]
+        identifier = "papers"
+        name = "论文"
+        url = "/papers/"
+        weight = 30
+
+    [[menu.main]]
+        identifier = "contact"
+        name = "联系我"
+        url = "/contact/"
+        weight = 40
+        
+[outputs]
+  home = ["HTML", "JSON"]  # 为搜索索引生成 JSON
+
+# --- 在文件末尾添加以下内容 ---
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      table = true # 确保表格扩展处于开启状态
+    [markup.goldmark.renderer]
+      # 设置为 true 来允许 Markdown 文件中的原始 HTML 标签
+      unsafe = true
+    [markup.goldmark.parser]
+      attribute = true  # 必须为 true
+    [markup.highlight]
+      style = "monokai"
+      linenos = true
+      lineNumbersInTable = true

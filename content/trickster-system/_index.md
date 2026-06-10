@@ -8,4 +8,5 @@ title = 'Trickster System'
 ## 子页面
 
 - [装备精炼](/trickster-system/refined)
+- [成长组合](/trickster-system/maturing-compound)
 
